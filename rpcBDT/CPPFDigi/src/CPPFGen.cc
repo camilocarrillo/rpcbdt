@@ -20,14 +20,22 @@ CPPFGen::CPPFGen(const edm::ParameterSet& iConfig) :
   ofstream target;
  
   features.open("bdt_training_features.csv", std::ofstream::trunc);
-  features <<       
+  features << 
+                "Deltaphi12" << "," << "Deltaphi23" << "," << "Deltaphi34" << "," <<
+		"Deltaphi34" << "," <<
+                "Cppf_theta3" << "," << 
+                "cluster_size1" << "," << "cluster_size2" << "," << "cluster_size3" << "," << "cluster_size4" << // "," <<
+  
+ 
+/*      
   "Cppf_phi1" << "," << "Cppf_phi2" << "," << "Cppf_phi3" << "," << "Cppf_phi4" << "," <<
   "Cppf_theta1" << "," << "Cppf_theta2" << "," << "Cppf_theta3" << "," << "Cppf_theta4" << "," <<
   "cluster_size1" << "," << "cluster_size2" << "," << "cluster_size3" << "," << "cluster_size4" << "," <<
   "Deltaphi12" << "," << "Deltaphi23" << "," << "Deltaphi34" << "," <<
   "Deltatheta12" << "," << "Deltatheta23" << "," << "Deltatheta34" << //"," <<
 	//"," <<
-/*   "Cppf_Gphi1" << "," << "Rec_phi1" << "," << "rawId1" <<  "," << "strip1" << "," <<
+
+  "Cppf_Gphi1" << "," << "Rec_phi1" << "," << "rawId1" <<  "," << "strip1" << "," <<
     "Cppf_Gphi2" << "," << "Rec_phi2" << "," << "rawId2" <<  "," << "strip2" << "," <<
     "Cppf_Gphi3" << "," << "Rec_phi3" << "," << "rawId3" <<  "," << "strip3" << "," <<
     "Cppf_Gphi4" << "," << "Rec_phi4" << "," << "rawId4" <<  "," << "strip4" <<
@@ -278,14 +286,13 @@ void CPPFGen::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup){
               
 //	      cout << " Deltaphi12 " << Deltaphi12 << " Deltaphi23 " << Deltaphi23 << " Deltaphi34 " << Deltaphi34 << endl;  
 //	      cout << " Deltatheta12 " << Deltatheta12 << " Deltatheta23 " << Deltatheta23 << " Deltatheta34 " << Deltatheta34 << endl;  
-		if (abs(Deltaphi12) > 0){
 		Int_t deltaphi1 = abs(Deltaphi12);
                 Float_t ddeltaphi1 = abs(Cppf_Gphi1-Cppf_Gphi2);
 		Int_t deltaphi2 = abs(Deltaphi34);
                 Float_t ddeltaphi2 = abs(Cppf_Gphi3-Cppf_Gphi4);
 
 		if((Muon_pt >= 1.) && (Muon_pt < 4.))	{
-                 cout << deltaphi1 << " "<< Cppf_phi1  << " " << Cppf_phi2   <<  endl;
+             //    cout << deltaphi1 << " "<< Cppf_phi1  << " " << Cppf_phi2   <<  endl;
 		 pt_14_1 = deltaphi1;
 		 dpt_14_1 = ddeltaphi1; 
 		 pt_14_2 = deltaphi2;
@@ -313,14 +320,13 @@ void CPPFGen::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup){
 		 dpt_1530_2 = ddeltaphi2; 
                 // Deltaphi4_rechit->Fill(ddeltaphi);
 		}
-	        }
 	      
 	    }//Loop over CPPFDigis
 	    NCPPFDigis = NCPPFDigis1 + NCPPFDigis2 + NCPPFDigis3 + NCPPFDigis4; 
 	   
 	    //Possible cuts ::::::::::::::::::::
             //if(cluster_size1 > 1) continue;
-	    //if(NCPPFDigis < 3) continue;
+	    if(NCPPFDigis < 4) continue;       // Exactly 4 hits 
             //if((Muon_pt < 50.) || (Muon_pt > 70.)) continue;
             //:::::::::::::::::::::::::::::::::::::
   //          cout << " ---------------------- Final CPPFDigis ------------------- " << endl;
@@ -345,11 +351,15 @@ void CPPFGen::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup){
 		endl;
 	      */
 	      features << 
-		Cppf_phi1 << "," << Cppf_phi2 << "," << Cppf_phi3 << "," << Cppf_phi4 << "," <<
-                Cppf_theta1 << "," << Cppf_theta2 << "," << Cppf_theta3 << "," << Cppf_theta4 << "," <<
-                cluster_size1 << "," << cluster_size2 << "," << cluster_size3 << "," << cluster_size4 << "," <<
                 Deltaphi12 << "," << Deltaphi23 << "," << Deltaphi34 << "," <<
-                Deltatheta12 << "," << Deltatheta23 << "," << Deltatheta34 <<  //"," << 
+		Deltaphi34 << "," <<
+                Cppf_theta3 << "," << 
+                cluster_size1 << "," << cluster_size2 << "," << cluster_size3 << "," << cluster_size4 << // "," <<
+                
+
+		//Cppf_phi1 << "," << Cppf_phi2 << "," << Cppf_phi3 << "," << Cppf_phi4 << "," <<
+                //Cppf_theta1 << "," << Cppf_theta2 << "," << Cppf_theta3 << "," << Cppf_theta4 << "," <<
+                //Deltatheta12 << "," << Deltatheta23 << "," << Deltatheta34 <<  "," << 
 		//"," <<
                 //Control
 
@@ -365,7 +375,7 @@ void CPPFGen::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup){
                 Muon_pt << 
 	        endl; 
 	      //Tree filling
-	      if(abs(Deltaphi12) > 0 || abs(Deltaphi34) > 0.) tree_->Fill();
+	       tree_->Fill();
 	      
 	  } //CPPFDigi isValid
 	}// Matching between muon and the some Rechit  

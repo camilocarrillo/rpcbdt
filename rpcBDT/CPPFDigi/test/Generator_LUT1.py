@@ -35,17 +35,17 @@ in_dir_name = '/eos/cms/store/user/masegura/MinBias/CRAB3_OCT2017_MC_Generation/
 #readFiles.extend( cms.untracked.vstring('file:'+in_dir_name+'SingleMuPt10_pythia8_cfi_py_GEN_SIM_DIGI.root') )
 
 
-readFiles.extend( cms.untracked.vstring('file:'+in_dir_name+'SingleMuPt10_pythia8_cfi_py_GEN_SIM_DIGI_1.root') )
-readFiles.extend( cms.untracked.vstring('file:'+in_dir_name+'SingleMuPt10_pythia8_cfi_py_GEN_SIM_DIGI_2.root') )
-readFiles.extend( cms.untracked.vstring('file:'+in_dir_name+'SingleMuPt10_pythia8_cfi_py_GEN_SIM_DIGI_3.root') )
-readFiles.extend( cms.untracked.vstring('file:'+in_dir_name+'SingleMuPt10_pythia8_cfi_py_GEN_SIM_DIGI_4.root') )
+#readFiles.extend( cms.untracked.vstring('file:'+in_dir_name+'SingleMuPt10_pythia8_cfi_py_GEN_SIM_DIGI_1.root') )
+#readFiles.extend( cms.untracked.vstring('file:'+in_dir_name+'SingleMuPt10_pythia8_cfi_py_GEN_SIM_DIGI_2.root') )
+#readFiles.extend( cms.untracked.vstring('file:'+in_dir_name+'SingleMuPt10_pythia8_cfi_py_GEN_SIM_DIGI_3.root') )
+#readFiles.extend( cms.untracked.vstring('file:'+in_dir_name+'SingleMuPt10_pythia8_cfi_py_GEN_SIM_DIGI_4.root') )
 #readFiles.extend( cms.untracked.vstring('file:'+in_dir_name+'SingleMuPt10_pythia8_cfi_py_GEN_SIM_DIGI_5.root') )
 
-#iFile = 0
-#for in_file_name in subprocess.check_output(['ls', in_dir_name]).splitlines():
-#    if not ('.root' in in_file_name): continue
-#    iFile += 1
-#    readFiles.extend( cms.untracked.vstring('file:'+in_dir_name+in_file_name) )
+iFile = 0
+for in_file_name in subprocess.check_output(['ls', in_dir_name]).splitlines():
+    if not ('.root' in in_file_name): continue
+    iFile += 1
+    readFiles.extend( cms.untracked.vstring('file:'+in_dir_name+in_file_name) )
 
 
 process.load('rpcBDT.CPPFDigi.cppfgen_cfi')
