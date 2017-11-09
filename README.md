@@ -10,3 +10,6 @@ RPC BDT studies for EMTF
   scram b 
   cmsRun rpcBDT/CPPFDigi/test/Generator_LUT1.py 
  ```
+if everything goes fine the following output files are produced:
+bdt_training_target.csv bdt_training_features.csv BDT_trainning_LUT_20.root
+
