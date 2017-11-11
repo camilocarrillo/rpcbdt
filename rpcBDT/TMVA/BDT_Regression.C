@@ -81,7 +81,7 @@ void BDT_Regression( TString myMethodList = "" )
    Use["FDA_GAMT"]        = 0;
    //
    // Neural Network
-   Use["MLP"]             = 0;
+   Use["MLP"]             = 1;
    Use["DNN_CPU"] = 0;
    //
    // Support Vector Machine
@@ -157,16 +157,19 @@ void BDT_Regression( TString myMethodList = "" )
    dataloader->AddVariable( "Cppf_theta4", "Cppf_theta4", "units", 'S' );
 */
  
-   dataloader->AddVariable( "Cppf_theta3", "Cppf_theta3", "units", 'S' );
+   dataloader->AddVariable( "Deltaphi12", "Deltaphi12", "units", 'S' );
+   dataloader->AddVariable( "Deltaphi23", "Deltaphi23", "units", 'S' );
+   dataloader->AddVariable( "Deltaphi34", "Deltaphi34", "units", 'S' );
 
+   dataloader->AddVariable( "Deltatheta14", "Deltatheta14", "units", 'S' );
+
+   dataloader->AddVariable( "Cppf_theta3", "Cppf_theta3", "units", 'S' );
+/*
    dataloader->AddVariable( "cluster_size1", "cluster_size1", "units", 'S' ); 
    dataloader->AddVariable( "cluster_size2", "cluster_size2", "units", 'S' );
    dataloader->AddVariable( "cluster_size3", "cluster_size3", "units", 'S' ); 
    dataloader->AddVariable( "cluster_size4", "cluster_size4", "units", 'S' );
-  
-   dataloader->AddVariable( "Deltaphi12", "Deltaphi12", "units", 'S' );
-   dataloader->AddVariable( "Deltaphi23", "Deltaphi23", "units", 'S' );
-   dataloader->AddVariable( "Deltaphi34", "Deltaphi34", "units", 'S' );
+  */
    /*     
    dataloader->AddVariable( "Deltatheta12", "Deltatheta12", "units", 'S' );
    dataloader->AddVariable( "Deltatheta23", "Deltatheta23", "units", 'S' );
@@ -181,7 +184,7 @@ void BDT_Regression( TString myMethodList = "" )
    //dataloader->AddSpectator( "spec2:=var1*3",  "Spectator 2", "units", 'F' );
 
    // Add the variable carrying the regression target
-   dataloader->AddTarget( "Muon_pt" ); 
+   dataloader->AddTarget( "Inverse_Muon_pt" ); 
 
    // It is also possible to declare additional targets for multi-dimensional regression, ie:
    //     factory->AddTarget( "fvalue2" );
@@ -190,7 +193,7 @@ void BDT_Regression( TString myMethodList = "" )
    // Read training and test data (see TMVAClassification for reading ASCII files)
    // load the signal and background event samples from ROOT trees
    TFile *input(0);
-   TString fname = "/afs/cern.ch/user/m/masegura/CMSSW_9_2_5_patch2/src/rpcBDT/CPPFDigi/test/BDT_trainning_LUT_20.root";
+   TString fname = "/afs/cern.ch/user/m/masegura/CMSSW_9_2_5_patch2/src/rpcBDT/CPPFDigi/test/testing/BDT_test.root";
    if (!gSystem->AccessPathName( fname )) {
       input = TFile::Open( fname ); // check if file in local directory exists
    }
@@ -223,7 +226,7 @@ void BDT_Regression( TString myMethodList = "" )
 
    // tell the DataLoader to use all remaining events in the trees after training for testing:
    dataloader->PrepareTrainingAndTestTree( mycut,
-                                         "nTrain_Regression=40000:nTest_Regression=5000:SplitMode=Random:NormMode=NumEvents:!V" );
+                                         "nTrain_Regression=20000:nTest_Regression=1000:SplitMode=Random:NormMode=NumEvents:!V" );
    //
    //     dataloader->PrepareTrainingAndTestTree( mycut,
    //            "nTrain_Regression=0:nTest_Regression=0:SplitMode=Random:NormMode=NumEvents:!V" );

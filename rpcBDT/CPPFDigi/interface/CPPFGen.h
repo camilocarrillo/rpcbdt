@@ -54,7 +54,8 @@ class CPPFGen : public edm::EDAnalyzer {
 
 
    Int_t NMuons;
-   Float_t Muon_pt; 
+   Float_t Muon_pt;
+   Float_t Inverse_Muon_pt; 
    Int_t NRechits;
    Int_t NMatchMuons;
    //Rechits variables
@@ -75,6 +76,7 @@ class CPPFGen : public edm::EDAnalyzer {
    Int_t Deltaphi12;
    Int_t Deltaphi23;
    Int_t Deltaphi34;
+   Int_t Deltaphi14;
    Int_t Cppf_theta1;
    Int_t Cppf_theta2;
    Int_t Cppf_theta3;
@@ -82,6 +84,7 @@ class CPPFGen : public edm::EDAnalyzer {
    Int_t Deltatheta12;
    Int_t Deltatheta23;
    Int_t Deltatheta34;
+   Int_t Deltatheta14;
    Float_t Cppf_Gphi1;
    Float_t Cppf_Gphi2;
    Float_t Cppf_Gphi3;
